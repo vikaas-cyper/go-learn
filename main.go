@@ -9,6 +9,8 @@ import (
 )
 
 func HelloWorld(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	fmt.Println(vars)
 	tmpl, err := template.ParseFiles("hello.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -16,7 +18,13 @@ func HelloWorld(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Render the template with data (if any)
-	data := struct{}{} // You can pass data to your template if needed
+	data := struct {
+		Name string
+	}{
+		Name: vars["name"],
+	}
+
+	// Render the template with the category data
 	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -31,7 +39,7 @@ func World(w http.ResponseWriter, r *http.Request) {
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", HelloWorld)
-	router.HandleFunc("/hello", HelloWorld)
+	router.HandleFunc("/hello/{name}", HelloWorld)
 	router.HandleFunc("/world", World)
 
 	http.Handle("/", router)
