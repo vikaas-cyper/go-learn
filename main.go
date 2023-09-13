@@ -10,7 +10,7 @@ import (
 
 func HelloWorld(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	fmt.Println(vars)
+
 	tmpl, err := template.ParseFiles("hello.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
