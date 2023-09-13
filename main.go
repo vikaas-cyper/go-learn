@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"todo-list/controller"
 
 	"github.com/gorilla/mux"
 )
@@ -38,6 +39,7 @@ func World(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
+	router.HandleFunc("/index", controller.DepartmentIndex)
 	router.HandleFunc("/", HelloWorld)
 	router.HandleFunc("/hello/{name}", HelloWorld)
 	router.HandleFunc("/world", World)
