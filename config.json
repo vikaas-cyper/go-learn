@@ -1,0 +1,4 @@
+{
+    "connection_string": "host=127.0.0.1 port=5432 user=go_learn password=go_learn dbname=go_learn sslmode=disable",
+    "port": 8080
+}
